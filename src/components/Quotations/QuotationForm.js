@@ -20,17 +20,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 function QuotationForm() {  
     const classes = useStyles();
+    
 
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
     const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: ''};
-
+    
+    const [pdfLink, setPdfLink] = useState('');
     const [quotation, setQuotation] = useState({});
     const [searchResults, setSearchResults] = useState([]);
     const [product, setProduct] = useState({});
     const [open, setOpen] = React.useState(false);
+
+    db.collection('quotations').doc("zdsFSgVzK2m0BL5IFJDS").get().then(function(doc){
+      console.log(doc.data());
+    }).catch(function(err){
+      console.log("Failled to get the doc from the database");
+    });
 
     async function searchDb(event){
         setSearchResults([]);
@@ -79,12 +86,12 @@ function QuotationForm() {
           let newProduct = product;  
           let grandTotal = 0;
           let totalTax = 0;
-          let totalDiscount = 0;
+          let totalDiscount = 0;;
           let productPricing = calculateProductPricing(newProduct.price, newProduct.quantity, newProduct.tax, newProduct.discount);
 
           newProduct['productPricing'] = productPricing;
 
-          newQuotation['products'] = newQuotation['products'] ? newQuotation['products'] : []; // pushing it into quotation array
+          newQuotation['products'] = newQuotation['products'] ? newQuotation['products'] : [];
 
           newQuotation['products'].push(newProduct);
 
@@ -97,7 +104,7 @@ function QuotationForm() {
           newQuotation['totalPricing'] = {
             grandTotal: grandTotal,
             totalDiscount: totalDiscount,
-            totalTax: totalTax
+            totalTax: totalTax,
           };
 
           setQuotation(newQuotation);
@@ -106,13 +113,11 @@ function QuotationForm() {
           event.preventDefault();
       }
 
-
       const quotationSubmitHandler = () => {
         let newQuotation = quotation;
-        let newDocumentReference;
-        newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp(); // Adding timestamp to the quotation.
-        db.collection("quotations").add(newQuotation).then(function(docRef) {
-          newDocumentReference = docRef.id;
+        newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
+        db.collection("quotations").add(newQuotation).then(async function(docRef) {
+          setPdfLink(`https://us-central1-uniquote-d48ca.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
       })
       .catch(function(error) {
           console.error("Error adding document: ", error);
@@ -129,6 +134,7 @@ function QuotationForm() {
       const handleClose = () => {
         setOpen(false);
       };
+
 
     return (
         <div>
@@ -148,7 +154,7 @@ function QuotationForm() {
             <Modal open={open} handleClose={handleClose}>
               <p>Quotation has been saved</p>
               {/* <Button className={classes.quotationShow} size="large" variant="contained" color="">Show Quotation</Button>  */}
-              <Link to="/quotations/final">Show quotation</Link>
+              <a href={pdfLink}>Download PDF</a>
             </Modal>
         </div>
     )

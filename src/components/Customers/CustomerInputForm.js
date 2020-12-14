@@ -16,19 +16,16 @@ function CustomerInputForm(props) {
             <p> Enter Customer details</p>
 
             <div>
-                <TextField size="small" fullWidth className={classes.input} label="Name" variant="outlined" type="text" value={props.quotation.name} onChange={event => (props.customerInputHandler("name", event.target.value))} required/>
+                <TextField size="small" fullWidth className={classes.input} label="Name" variant="outlined" type="text" value={props.quotation.name} onChange={event => (props.customerInputHandler("name", event.target.value))}/>
             </div>            
             <div>
-                <TextField size="small" fullWidth className={classes.input} label="Address" variant="outlined" type="text" value={props.quotation.address} onChange={event => (props.customerInputHandler("address", event.target.value))} required/>
+                <TextField size="small" fullWidth className={classes.input} label="Address" variant="outlined" type="text" value={props.quotation.address} onChange={event => (props.customerInputHandler("address", event.target.value))}/>
             </div>
             <div>
-                <TextField size="small" fullWidth className={classes.input} label="Phone Number" variant="outlined" type="number" value={props.quotation.phoneNumber} onChange={event => (props.customerInputHandler("phoneNumber", Number(event.target.value)))} required/>
+                <TextField size="small" fullWidth className={classes.input} label="Phone Number" variant="outlined" type="number" value={props.quotation.phoneNumber} onChange={event => (props.customerInputHandler("phoneNumber", Number(event.target.value)))}/>
             </div>
             <div>
-                <TextField size="small" fullWidth className={classes.input} label="Email" variant="outlined" type="email" value={props.quotation.email} onChange={event => (props.customerInputHandler("email", event.target.value))} required/>
-            </div>
-            <div>
-                <TextField size="small" fullWidth className={classes.input} label="GSTIN" variant="outlined" type="text" value={props.quotation.gstin} onChange={event => (props.customerInputHandler("gstin", event.target.value))}/><br />
+                <TextField size="small" fullWidth className={classes.input} label="Email" variant="outlined" type="email" value={props.quotation.email} onChange={event => (props.customerInputHandler("email", event.target.value))}/>
             </div>
         </div>
     )

@@ -8,8 +8,8 @@ function DisplayProducts(props) {
             <table>
                 <thead>
                     <tr>
-                        <th>Brand</th>
                         <th>Model Number</th>
+                        <th>Brand</th>
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Unit Price</th>
@@ -24,8 +24,8 @@ function DisplayProducts(props) {
                 <tbody>
                     {props.quotation.products.map(product => (
                         <tr key={product.productId}>
-                            <td>{product.brand}</td>
                             <td>{product.modelNumber}</td>
+                            <td>{product.brand}</td>
                             <td>{product.description}</td>
                             <td>{product.quantity}</td>
                             <td>{product.price}</td>

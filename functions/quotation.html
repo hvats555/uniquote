@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <title>Unifrost quotation</title>
+</head>
+<body>
+    <style>
+          body{
+            -webkit-print-color-adjust:exact;
+          }
+
+          .quotation-box{
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+          }
+
+          .company-logo{
+            align-self: center;
+            width: 150px;
+            height: auto;
+          }
+
+          svg{
+            width: 100%;
+
+          }
+
+          .quotation-section{
+            display: flex;
+            justify-content: space-between;
+          }
+
+          table{
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+            padding: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+          }
+
+          thead{
+            color: #ffffff;
+            background-color: #6c7ae0;
+          }
+
+          th, td{
+          padding: 10px;
+          text-align: center;
+          }
+
+          tbody > tr:nth-of-type(odd) { 
+          background: #eee; 
+          }
+
+          tfoot{
+          color: #ffffff;
+          background-color: #6c7ae0;
+          }
+
+          table tr:first-child th:first-child {
+          border-top-left-radius: 5px;
+          }
+
+          table tr:first-child th:last-child {
+          border-top-right-radius: 5px;
+          }
+
+          table tr:last-child td:first-child {
+          border-bottom-left-radius: 5px;
+          }
+
+          table tr:last-child td:last-child {
+          border-bottom-right-radius: 5px;
+          }
+
+          .quotation-summary{
+            float: right;
+          }
+
+          footer{
+            background-color: #6c7ae0;
+            bottom: 0px;
+          }
+
+          footer > ul{
+            padding: 10px;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+          }
+
+          .quotation-summary{
+            display: flex;
+            flex-direction: column;
+          }
+
+          /*Basic styling*/
+          .font-14{
+          font-size: 14px !important;
+          }
+
+          .font-12{
+          font-size: 12px!important;
+          }
+
+          .center{
+          text-align: center;
+          }
+
+          .italics{
+          font-style: italic !important;
+          }
+
+          .bold{
+          font-weight: bold !important;
+          }
+
+          .float-right{
+          float: right;
+         
+      }
+    </style>
+    <div class="quotation-box">
+        <div class="quotation-section">
+            <div class="company-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 931 225.59"><defs><style>.cls-1{fill:#057cbe;}.cls-2{fill:#f40000;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_3" data-name="Layer 3"><ellipse class="cls-1" cx="384.87" cy="112.03" rx="384.87" ry="112.03"/><ellipse class="cls-2" cx="450.41" cy="112.79" rx="325.42" ry="112.79"/><path class="cls-1" d="M342.91,161.47c-23.6,0-41.23-13.59-41.23-43.92V69.3h18.53V117c0,19.42,8.36,28.83,23,28.83s23-9.41,23-28.83V69.3H384v48.25C384,147.88,366.52,161.47,342.91,161.47Z"/><path class="cls-1" d="M465.55,158.93,418.64,99.77v59.16H402.36V69.3h12.7L462,128.45V69.3h16.28v89.63Z"/><path class="cls-1" d="M496.62,158.93V69.3h18.22v89.63Z"/><path class="cls-1" d="M551.29,83.49v21.66H583v14H551.29v39.74H533.06V69.3h57.36V83.49Z"/><path class="cls-1" d="M648,160.64l-18.71-37.41H618.8v35.7H600.58V69.3h35.25c21.22,0,30.33,12.55,30.33,27,0,12.7-7.17,22.55-19.72,25.39l18,33.68ZM618.8,110.38h14.05c11.35,0,15.38-6,15.38-13.89,0-8.07-4-14.2-15.38-14.2H618.8Z"/><path class="cls-1" d="M728.3,161.47c-27.49,0-48.85-19.87-48.85-47.36s21.36-47.35,48.85-47.35,48.4,19.87,48.4,47.35S755.64,161.47,728.3,161.47Zm0-80.22c-17.93,0-29.73,13.44-29.73,32.86S710.37,147,728.3,147c17.62,0,29.28-13.45,29.28-32.87S745.92,81.25,728.3,81.25Z"/><path class="cls-1" d="M817.17,160.72c-14.94,0-25.69-5.82-31.82-11.2l4.19-14.34c6,5.67,15.38,12.1,27.63,12.1,9,0,15.84-4.48,15.84-12.4,0-7.47-4.19-11.06-18.83-14.94-18.82-4.63-26.29-14.64-26.29-27.49,0-14.64,11.65-25.24,30.92-25.24A45.38,45.38,0,0,1,845.7,76l-3.88,12.7C835.55,84.54,826.58,81,818.67,81c-8.82,0-14,3.88-14,10.31,0,5.23,3.29,9.11,15.39,12.25,20.91,5.23,29.88,14,29.88,29.58C849.89,152.36,834.05,160.72,817.17,160.72Z"/><path class="cls-1" d="M900.67,83.49v75.44H882.45V83.49H852.12V69.3H931V83.49Z"/></g></g></svg>
+            </div>
+            <div class="company-address">
+                <p class="italics">Office Address</p>
+                <p><span class="bold">Unifrost Food service Equipment</span><br>
+                Ground Floor, 241/2, Opp. Metro Pillar 48, MG road<br/>
+                Sultanpur, New Delhi - 110030</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="quotation-section">
+            <p>Quotation ref : #32</p>
+            <p>Date : {{date}}</p>
+        </div>
+
+        <div>
+            <p class="bold">Customer Details</p>
+            <span>{{name}}</span><br />
+            <span>{{address}}</span><br />
+            <span>{{phoneNumber}}</span><br />
+            <span>{{email}}</span><br />
+        </div>
+
+        <hr>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Model Number</th>
+                    <th>Brand</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                    <th>Discount %</th>
+                    <th>Tax</th>
+                    <th>Tax value</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              {{#each products}}
+                <tr>
+                    <td>{{brand}}</td>
+                    <td>{{modelNumber}}</td>
+                    <td>{{description}}</td>
+                    <td>{{quantity}}</td>
+                    <td>{{price}}</td>
+                    <td>{{productPricing.totalPrice}}</td>
+                    <td>{{discount}}</td>
+                    <td>{{tax}}</td>
+                    <td>{{productPricing.taxValue}}</td>
+                    <td><strong>{{productPricing.totalPrice}}</strong></td>
+                </tr>
+              {{/each}}
+            </tbody>
+        </table>
+
+        <div class="quotation-section">
+          <p class="italics font-14">{{rupeesIntoWords}}</p>
+          <div class="quotation-summary">
+            <span class="italics float-right">Total Discount : {{totalPricing.totalDiscount}}</span>
+            <span class="italics float-right">Total Tax : {{totalPricing.totalTax}}</span>
+            <span class="bold italics float-right">Grand Total : {{totalPricing.grandTotal}}</span>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="quotation-section">
+            <div class="font-14">
+                <p>
+                <span class="bold">Terms and Conditions</span><br />
+                Payment : 100% Before Delivery <br />
+                Fright : Actual <br />
+                Warantty : 1 Year Comprihensive <br />
+                Delivery Schedule : After payment</p>
+            </div>
+
+            <div class="font-14">
+                <p>
+                <span class="bold">Bank Details</span><br />
+                Company Name : Unifrost Food Service Equipment <br />
+                Bank Name : Corpration Bank <br />
+                Account Number : 560101000124208<br />
+                IFSC code : CORP0001760100 <br />
+                Branch Name : Branch-Ghitorni, New Delhi-30
+            </p>
+            </div>
+        </div>
+
+        
+        <footer id="pageFooter">
+            <ul>
+                <li>+91 9873255539</li>
+                <li>sales@unifrostindia.com</li>
+                <li>www.unifrostindia.com</li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

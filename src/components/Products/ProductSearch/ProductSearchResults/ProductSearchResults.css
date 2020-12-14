@@ -1,0 +1,9 @@
+.productSearchResults__container{
+    background-color: rgb(211, 207, 207);
+    padding: 0px 10px;
+    width: 200px;
+}
+
+.productSearchResults__result :hover{
+    background-color: white;
+}

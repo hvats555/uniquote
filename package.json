@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "algoliasearch": "^4.8.3",
+    "convert-rupees-into-words": "^1.0.6",
     "dotenv": "^8.2.0",
     "firebase": "^8.1.2",
     "react": "^17.0.1",
