@@ -35,6 +35,8 @@ function QuotationForm() {
     });
     
     const [searchResults, setSearchResults] = useState([]);
+
+    // product -> used to take input from user about product
     const [product, setProduct] = useState({
       brand: '',
       modelNumber: '',
@@ -42,6 +44,7 @@ function QuotationForm() {
       tax: '',
       discount: ''
     });
+
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -51,7 +54,6 @@ function QuotationForm() {
     const handleClose = () => {
       setOpen(false);
     };
-
 
     const [productValidationErrors, setProductValidationErrors] = useState({
       brand: {
@@ -223,7 +225,15 @@ function QuotationForm() {
         setSearchResults([]);
         if(event.target.value !== ''){
           await db.collection('products').where('modelNumber', '>=', event.target.value).where('modelNumber', '<=', event.target.value + '\uf8ff').get().then(function(snapshot){      
-            setSearchResults(snapshot.docs.map(doc => ( {productId:doc.id, modelNumber: doc.data().modelNumber, description: doc.data().description, price: doc.data().price} )));
+            setSearchResults(snapshot.docs.map(doc => (
+              {
+                productId:doc.id,
+                modelNumber: doc.data().modelNumber,
+                description: doc.data().description,
+                imageURL: doc.data().imageURL,
+                price: doc.data().price
+              }
+            )));
           });
         }
       }
@@ -244,8 +254,8 @@ function QuotationForm() {
       const calculateProductPricing = (unitPrice, quantity, tax, discount) => {
         const productPrice = unitPrice * quantity;
         const taxValue = (tax/100)* productPrice;
-        const discountValue = (discount/100) * productPrice;
-        const totalPrice = (productPrice - discountValue) + taxValue;
+        const discountValue = Math.ceil((discount/100) * productPrice);
+        const totalPrice = Math.ceil((productPrice - discountValue) + taxValue);
 
         const productPricing = {
           productPrice : productPrice,
@@ -267,8 +277,9 @@ function QuotationForm() {
           let newProduct = product;  
           let grandTotal = 0;
           let totalTax = 0;
-          let totalDiscount = 0;;
+          let totalDiscount = 0;
           let productPricing = calculateProductPricing(newProduct.price, newProduct.quantity, newProduct.tax, newProduct.discount);
+          console.log(productPricing);
 
           newProduct['productPricing'] = productPricing;
 
@@ -393,6 +404,8 @@ function QuotationForm() {
         setProduct(newProduct);
         deleteTableProduct(productId);
       }
+
+      console.log(quotation.products);
 
     return (
         <div>

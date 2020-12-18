@@ -10,6 +10,7 @@ function DisplayProducts(props) {
                     <tr>
                         <th>Model Number</th>
                         <th>Brand</th>
+                        <th>Product Image</th>
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Unit Price</th>
@@ -27,6 +28,11 @@ function DisplayProducts(props) {
                         <tr key={product.productId}>
                             <td>{product.modelNumber}</td>
                             <td>{product.brand}</td>
+                            <td>
+                                <div className="productImage">
+                                    <img src={product.imageURL} alt="Product"></img>
+                                </div>
+                            </td>
                             <td>{product.description}</td>
                             <td>{product.quantity}</td>
                             <td>{product.price}</td>

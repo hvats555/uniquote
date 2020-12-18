@@ -5,6 +5,7 @@ import Input from '../UI/Input/Input';
 import Button from '@material-ui/core/Button';
 import Modal from '../UI/Modal/Modal';
 import {Link} from 'react-router-dom';
+import './ProductForm.css';
 
 
 
@@ -15,9 +16,12 @@ function ProductForm() {
       {
         modelNumber: '',
         description: '',
-        price: ''
+        price: '',
+        imageURL: ''
       }
     );
+
+    const [image, setImage] = useState(null);
 
     const [productValidationErrors, setProductValidationErrors] = useState({
       price: {
@@ -29,6 +33,10 @@ function ProductForm() {
         errorText: ''
       },
       description: {
+        isError: false,
+        errorText: ''
+      },
+      imageURL: {
         isError: false,
         errorText: ''
       }
@@ -65,6 +73,12 @@ function ProductForm() {
         errors.price['errorText'] = 'Price has to be a number';
       }
 
+      if(!fields['imageURL']){
+        formIsValid = false;
+        errors.imageURL['isError'] = !formIsValid;
+        errors.imageURL['errorText'] = 'Please add image';
+      }
+
       setProductValidationErrors(errors);
       return formIsValid;
     }
@@ -80,6 +94,21 @@ function ProductForm() {
     const handleClose = () => {
       setOpen(false);
     };
+
+    function handleUpload(e) {
+      e.preventDefault();
+      const uploadTask = firebase.storage().ref(`/productImages/${image.name}`).put(image);
+      uploadTask.on("state_changed", console.log, console.error, () => {
+        firebase.storage()
+          .ref("productImages")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            setImage(null);
+            inputChangeHandler('imageURL', url);
+          });
+      });
+    }
   
     const addProduct = (event) => {
       event.preventDefault();
@@ -88,7 +117,8 @@ function ProductForm() {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           modelNumber: input.modelNumber,
           description: input.description,
-          price: input.price
+          price: input.price,
+          imageURL: input.imageURL
         });
 
         setInput({modelNumber: '', description: '', price: ''});
@@ -105,12 +135,19 @@ function ProductForm() {
           description: {
             isError: false,
             errorText: ''
+          },
+          imageURL: {
+            isError: false,
+            errorText: ''
           }
         });
 
         handleOpen()
-
       }
+    }
+
+    const handleFileChange = (event) => {
+      setImage(event.target.files[0]);
     }
 
     return (
@@ -150,6 +187,20 @@ function ProductForm() {
             size="small"
             inputChangeHandler={inputChangeHandler} />
           </div>
+
+          <div>
+            <input type="file" onChange={(event) => {handleFileChange(event)}}/>
+          </div>
+
+          <div className="productImage">
+            {input.imageURL ?
+            <img src={input.imageURL} alt="Product" />
+            : null}
+            <p>{productValidationErrors.imageURL.errorText}</p>
+          </div>
+
+          <button onClick={handleUpload}>Upload Image</button>
+
 
           <Button size="medium" type="submit" variant="contained" color="primary" onClick={(event) => {addProduct(event)}}>Add product</Button> 
 

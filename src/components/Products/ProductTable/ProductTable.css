@@ -84,4 +84,13 @@ table tr:first-child th:first-child {
     float: right;
 }
 
+.productImage{
+  height: 100px;
+  width: 100px;
+}
+
+.productImage > img{
+  height: 100%;
+  width: 100%;
+}
 

@@ -1,0 +1,9 @@
+.productImage{
+    width: 100px;
+    height: auto;
+  }
+  
+  .productImage > img{
+    height: 100%;
+    width: 100%;
+  }
