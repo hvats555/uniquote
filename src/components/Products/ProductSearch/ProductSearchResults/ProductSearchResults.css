@@ -1,9 +1,26 @@
 .productSearchResults__container{
-    background-color: rgb(211, 207, 207);
-    padding: 0px 10px;
     width: 200px;
 }
 
-.productSearchResults__result :hover{
-    background-color: white;
+.productSearchResults__result{
+    padding: 10px;
+}
+
+.productSearchResults__result:hover{
+    background-color: #ebebeb;
+}
+
+.productSearchResults__heading{
+    text-transform: uppercase;
+    color: blue;
+}
+
+.productSearchResults__content{
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.productSearchResults__meta{
+    font-size: 12px;
+    color: 	#696969
 }

@@ -18,6 +18,7 @@ function DisplayProducts(props) {
                         <th>Tax</th>
                         <th>Tax value</th>
                         <th>Total</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
@@ -34,6 +35,8 @@ function DisplayProducts(props) {
                             <td>{product.tax}</td>
                             <td>{product.productPricing.taxValue}</td>
                             <td>{product.productPricing.totalPrice}</td>
+                            <td><button onClick={() => {props.editTableProduct(product.productId)}}>Edit</button>
+                            <button onClick={() => {props.deleteTableProduct(product.productId)}}>Delete</button></td>
                         </tr>
                     ))}
                 </tbody>

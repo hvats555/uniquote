@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Header from './components/UI/Header';
 import Home from './components/Home';
-import AllProducts from './components/Products/AllProducts';
+import AllProducts from './components/Products/AllProducts/AllProducts';
 import ProductForm from './components/Products/ProductForm';
 import AllQuotations from './components/Quotations/AllQuotations';
 import QuotationForm from './components/Quotations/QuotationForm';

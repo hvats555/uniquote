@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
-import db from '../../firebase';
+import db from '../../../firebase';
+import './AllProducts.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -21,24 +22,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AllQuotations() {
+function AllProducts() {
   const classes = useStyles();
 
-    const [quotations, setQuotations] = useState([]);
+    const [product, setProduct] = useState([]);
     useEffect(() => {
-        db.collection('quotations').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-          setQuotations(snapshot.docs.map(doc => ({id: doc.id, name: doc.data().name, address: doc.data().address})))
+        db.collection('products').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+          setProduct(snapshot.docs.map(doc => ({id: doc.id, modelNumber: doc.data().modelNumber, description: doc.data().description, price: doc.data().price})))
         })
       }, []);
 
     return (
           <div className={classes.root}>
             <Grid container spacing={2}>
-              {quotations.map(quotation => (
+              {product.map(p => (
                 <Grid item xs={3}>
                   <Paper className={classes.paper}>
-                    <h1 className={classes.heading}>{quotation.name}</h1>
-                    <p className={classes.content}>{quotation.address}</p>
+                    <h1 className={classes.heading}>{p.modelNumber}</h1>
+                    <p className={classes.content}>{p.description}</p>
+                    <p>Price: ₹{p.price}</p>
                   </Paper>
                 </Grid>
               ))}
@@ -47,4 +49,4 @@ function AllQuotations() {
     )
 }
 
-export default AllQuotations
+export default AllProducts
