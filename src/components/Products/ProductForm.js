@@ -190,17 +190,15 @@ function ProductForm() {
 
           <div>
             <input type="file" onChange={(event) => {handleFileChange(event)}}/>
+            <button disabled={image == null} onClick={handleUpload}>Upload Image</button>
           </div>
 
-          <div className="productImage">
             {input.imageURL ?
-            <img src={input.imageURL} alt="Product" />
+            <div className="productImage">
+              <img src={input.imageURL} alt="Product" />
+            </div>
             : null}
             <p>{productValidationErrors.imageURL.errorText}</p>
-          </div>
-
-          <button onClick={handleUpload}>Upload Image</button>
-
 
           <Button size="medium" type="submit" variant="contained" color="primary" onClick={(event) => {addProduct(event)}}>Add product</Button> 
 
