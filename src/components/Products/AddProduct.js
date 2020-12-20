@@ -5,11 +5,11 @@ import Input from '../UI/Input/Input';
 import Button from '@material-ui/core/Button';
 import Modal from '../UI/Modal/Modal';
 import {Link} from 'react-router-dom';
-import './ProductForm.css';
+import './AddProduct.css';
 
 
 
-function ProductForm() {
+function AddProduct() {
   const [open, setOpen] = useState(false);
 
     const [input, setInput] = useState(
@@ -211,4 +211,4 @@ function ProductForm() {
     )
 }
 
-export default ProductForm
+export default AddProduct

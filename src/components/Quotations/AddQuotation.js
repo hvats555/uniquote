@@ -1,5 +1,4 @@
-import React from 'react'
-import {useState} from 'react';
+import React, {useState} from 'react'
 import db from '../../firebase';
 import firebase from 'firebase';
 import ProductSearch from '../Products/ProductSearch/ProductSearch';
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function QuotationForm() {  
+function AddQuotation() {  
     const classes = useStyles();
   
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
@@ -33,10 +32,9 @@ function QuotationForm() {
       phoneNumber: '',
       email: ''
     });
-    
+
     const [searchResults, setSearchResults] = useState([]);
 
-    // product -> used to take input from user about product
     const [product, setProduct] = useState({
       brand: '',
       modelNumber: '',
@@ -46,7 +44,7 @@ function QuotationForm() {
     });
 
     const [open, setOpen] = useState(false);
-
+    
     const handleOpen = () => {
       setOpen(true);
     };
@@ -396,6 +394,7 @@ function QuotationForm() {
               modelNumber: newQuotation.products[productIndex].modelNumber,
               description: newQuotation.products[productIndex].description,
               price: newQuotation.products[productIndex].price,
+              imageURL: newQuotation.products[productIndex].imageURL,
               quantity: newQuotation.products[productIndex].quantity,
               discount: newQuotation.products[productIndex].discount,
               tax: newQuotation.products[productIndex].tax
@@ -444,4 +443,4 @@ function QuotationForm() {
     )
 } 
 
-export default QuotationForm
+export default AddQuotation
