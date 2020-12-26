@@ -1,13 +1,17 @@
-import {useState} from 'react';
-import db from '../../firebase';
+import {useState, useEffect, useRef} from 'react';
+import db from '../../../firebase';
 import firebase from 'firebase';
-import Input from '../UI/Input/Input';
+import Input from '../../UI/Input/Input';
 import Button from '@material-ui/core/Button';
-import Modal from '../UI/Modal/Modal';
-import {Link} from 'react-router-dom';
-import './AddProduct.css';
+import Modal from '../../UI/Modal/Modal';
+import {Link, Redirect} from 'react-router-dom';
+import {storage} from '../../../firebase';
+import './EditProduct.css';
 
-function AddProduct() {
+function EditProduct({match}) {
+    const [redirect, setRedirect] = useState(false);
+    const [newImageUploaded, setNewUploaded] = useState(false);
+
     const [input, setInput] = useState(
       {
         modelNumber: '',
@@ -17,6 +21,8 @@ function AddProduct() {
         imageFileName: ''
       }
     );
+
+    const [previousInput, setPreviousInput] = useState();
 
     const [image, setImage] = useState(null);
 
@@ -38,6 +44,20 @@ function AddProduct() {
         errorText: ''
       }
     });
+
+    useEffect(() => {
+        db.collection('products').doc(match.params.id).get().then(function(snapshot){
+          const product = {
+            modelNumber: snapshot.data().modelNumber,
+            description: snapshot.data().description,
+            price: snapshot.data().price,
+            imageURL: snapshot.data().imageURL,
+            imageFileName: snapshot.data().imageFileName
+        }
+          setInput(product);
+          setPreviousInput(product);
+        })
+    }, []);
 
     const handleProductValidation = () => {
       const fields = input;
@@ -93,19 +113,31 @@ function AddProduct() {
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
+            setImage(null);
             setInput({
               ...input,
               imageURL: url,
               imageFileName: image.name
             });
+            setNewUploaded(true);
           });
       });
     }
+
+    const deleteProductImage = (imageRef) => {
+      const deleteRef = storage.ref().child(`productImages/${imageRef}`);
+      deleteRef.delete().then(function(){
+        console.log("File deleted successfully");
+      }).catch(function(error){
+        console.log("Cannot delete file");
+      });
+    }
   
-    const addProduct = (event) => {
+    const updateProduct = (event) => {
       event.preventDefault();
+
       if(handleProductValidation()){
-        db.collection('products').add({
+        db.collection('products').doc(match.params.id).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           modelNumber: input.modelNumber,
           description: input.description,
@@ -113,9 +145,9 @@ function AddProduct() {
           imageURL: input.imageURL,
           imageFileName: input.imageFileName
         });
-
-        setInput({modelNumber: '', description: '', price: ''});
-
+        if(newImageUploaded){
+          deleteProductImage(previousInput.imageFileName);
+        }
         setProductValidationErrors({
           price: {
             isError: false,
@@ -134,6 +166,7 @@ function AddProduct() {
             errorText: ''
           }
         });
+        setRedirect(true);
       }
     }
 
@@ -141,10 +174,12 @@ function AddProduct() {
       setImage(event.target.files[0]);
     }
 
+    
+
     return (
         <div>
-        <h1>Add product</h1>
-        <p>Enter product details</p>
+        <h1>Edit product</h1>
+        <p>Update product details</p>
           <div>
             <Input 
             errorState={productValidationErrors.modelNumber.isError}
@@ -181,7 +216,7 @@ function AddProduct() {
 
           <div>
             <input type="file" onChange={(event) => {handleFileChange(event)}}/>
-            <button disabled={image == null} onClick={handleUpload}>Upload Image</button>
+            <button disabled={image == null} onClick={handleUpload}>Update Image</button>
           </div>
 
             {input.imageURL ?
@@ -191,9 +226,11 @@ function AddProduct() {
             : null}
             <p>{productValidationErrors.imageURL.errorText}</p>
 
-          <Button size="medium" type="submit" variant="contained" color="primary" onClick={(event) => {addProduct(event)}}>Add product</Button> 
+          <Button size="medium" type="submit" variant="contained" color="primary" onClick={(event) => {updateProduct(event)}}>Update product</Button> 
+
+          {redirect ? <Redirect to="/products"/> : null}
       </div>
     )
 }
 
-export default AddProduct
+export default EditProduct

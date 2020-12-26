@@ -3,6 +3,13 @@ import db from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
+
+const linkStyle = {
+  color: 'white',
+  textDecoration: 'none'
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary
   },
   heading: {
-    textTransform: 'uppercase',
+    textTransform: 'Capitalize',
     fontSize: '22px',
   }
 }));
@@ -39,6 +46,14 @@ function AllQuotations() {
                   <Paper className={classes.paper}>
                     <h1 className={classes.heading}>{quotation.name}</h1>
                     <p className={classes.content}>{quotation.address}</p>
+
+                    <div className="productOptions">
+                      <Button target="_blank" color="primary" size="small" variant="contained" href={`https://us-central1-uniquote-d48ca.cloudfunctions.net/makePdf/quotations/${quotation.id}/pdf`}>Download</Button>
+
+                      <Link style={linkStyle} to={`/quotations/${quotation.id}/edit`}>
+                        <Button size="small" color="secondary">Edit</Button>
+                      </Link>
+                    </div>
                   </Paper>
                 </Grid>
               ))}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import db from '../../firebase';
 import firebase from 'firebase';
 import ProductSearch from '../Products/ProductSearch/ProductSearch';
@@ -7,7 +7,6 @@ import CustomerInputForm from '../Customers/CustomerInputForm';
 import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '../UI/Modal/Modal';
-import {useAuth} from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   quotationSubmitButton : {
@@ -19,11 +18,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AddQuotation() {  
+function EditQuotation({match}) {  
     const classes = useStyles();
-    const {currentUser} = useAuth();
-
-    console.log(currentUser);
   
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
     const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: ''};
@@ -103,6 +99,12 @@ function AddQuotation() {
       }
     });
 
+    useEffect(() => {
+        db.collection('quotations').doc(match.params.id).get().then(function(snapshot){
+          setQuotation(snapshot.data());
+        })
+    }, []);
+
     const handleQuotationValidation = () => {
       const fields = quotation;
       let errors = {...quotationValidationErrors};
@@ -151,10 +153,10 @@ function AddQuotation() {
          }
       }
       
-      if(typeof fields['products'] == 'undefined' || fields['products'].length == 0){
-        formIsValid = false;
-        errors.products['isError'] = !formIsValid;
-        errors.products["errorText"] = "You must add atleast 1 product.";
+      if(fields['products'].length == 0){
+          formIsValid = false;
+          errors.products['isError'] = !formIsValid;
+          errors.products["errorText"] = "You must add atleast 1 product.";
       }
 
       setQuotationValidationErrors(errors);
@@ -335,7 +337,7 @@ function AddQuotation() {
         if(handleQuotationValidation()){
           let newQuotation = quotation;
           newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
-          db.collection("quotations").add(newQuotation).then(async function(docRef) {
+          db.collection("quotations").doc(match.params.id).update(newQuotation).then(async function(docRef) {
             setPdfLink(`https://us-central1-uniquote-d48ca.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
           })
           .catch(function(error) {
@@ -408,11 +410,11 @@ function AddQuotation() {
         deleteTableProduct(productId);
       }
 
-      console.log(quotation.products);
+      console.log(quotationValidationErrors);
 
     return (
         <div>
-            <h1>Create new Quotation</h1>
+            <h1>Edit Quotation</h1>
 
             <CustomerInputForm 
             quotation={quotation} 
@@ -437,18 +439,18 @@ function AddQuotation() {
             size="large" 
             variant="contained" 
             color="primary" 
-            onClick={() => {quotationSubmitHandler()}}>Save Quotation</Button> 
+            onClick={() => {quotationSubmitHandler()}}>Update Quotation</Button>
 
             <div style={{color: 'red'}}>
                 {quotationValidationErrors.products.isError ? quotationValidationErrors.products.errorText : null}
             </div>
 
             <Modal open={open} handleClose={handleClose}>
-              <p>Quotation has been saved</p>
+              <p>Quotation has been Updated</p>
               <a href={pdfLink}>Download PDF</a>
             </Modal>
         </div>
     )
 } 
 
-export default AddQuotation
+export default EditQuotation
