@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "uniquote-d48ca"
+    "development": "uniquote-d48ca",
+    "production": "uniquote-prod"
   }
 }

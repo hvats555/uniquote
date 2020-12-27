@@ -24,9 +24,11 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-env start",
+    "build": "react-app-env build",
+    "build:development": "react-app-env --env-file=development.env build",
+    "build:production": "react-app-env --env-file=production.env build",
+    "test": "react-app-env test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-env": "^1.2.3"
   }
 }
