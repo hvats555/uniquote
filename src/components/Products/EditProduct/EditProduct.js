@@ -188,6 +188,7 @@ function EditProduct({match}) {
             value={input.modelNumber} 
             inputKey={'modelNumber'} 
             inputChangeHandler={inputChangeHandler} 
+            fullWidth={true}
             size="small"
             variant="outlined"/>
           </div>
@@ -200,6 +201,9 @@ function EditProduct({match}) {
             value={input.description} 
             inputKey={'description'} 
             size="small"
+            fullWidth={true}
+            multiline={true}
+            rowsMax={5}
             inputChangeHandler={inputChangeHandler} />
           </div>
 
@@ -210,6 +214,7 @@ function EditProduct({match}) {
             label="Price" 
             value={input.price} 
             inputKey={'price'} 
+            fullWidth={true}
             size="small"
             inputChangeHandler={inputChangeHandler} />
           </div>

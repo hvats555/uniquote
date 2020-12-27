@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    marginTop: '65px'
   },
   content: {
     flexGrow: 1,

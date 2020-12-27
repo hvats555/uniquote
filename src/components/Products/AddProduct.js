@@ -3,8 +3,6 @@ import db from '../../firebase';
 import firebase from 'firebase';
 import Input from '../UI/Input/Input';
 import Button from '@material-ui/core/Button';
-import Modal from '../UI/Modal/Modal';
-import {Link} from 'react-router-dom';
 import './AddProduct.css';
 
 function AddProduct() {
@@ -144,7 +142,6 @@ function AddProduct() {
     return (
         <div>
         <h1>Add product</h1>
-        <p>Enter product details</p>
           <div>
             <Input 
             errorState={productValidationErrors.modelNumber.isError}
@@ -154,6 +151,7 @@ function AddProduct() {
             inputKey={'modelNumber'} 
             inputChangeHandler={inputChangeHandler} 
             size="small"
+            fullWidth={true}
             variant="outlined"/>
           </div>
 
@@ -165,6 +163,9 @@ function AddProduct() {
             value={input.description} 
             inputKey={'description'} 
             size="small"
+            fullWidth={true}
+            multiline={true}
+            rowsMax={5}
             inputChangeHandler={inputChangeHandler} />
           </div>
 
@@ -176,6 +177,7 @@ function AddProduct() {
             value={input.price} 
             inputKey={'price'} 
             size="small"
+            fullWidth={true}
             inputChangeHandler={inputChangeHandler} />
           </div>
 
