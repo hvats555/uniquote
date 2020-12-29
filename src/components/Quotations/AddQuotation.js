@@ -336,7 +336,7 @@ function AddQuotation() {
           let newQuotation = quotation;
           newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
           db.collection("quotations").add(newQuotation).then(async function(docRef) {
-            setPdfLink(`https://us-central1-uniquote-d48ca.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
+            setPdfLink(`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
           })
           .catch(function(error) {
               console.error("Error adding document: ", error);

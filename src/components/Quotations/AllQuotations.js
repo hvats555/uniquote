@@ -48,7 +48,7 @@ function AllQuotations() {
                     <p className={classes.content}>{quotation.address}</p>
 
                     <div className="productOptions">
-                      <Button target="_blank" color="primary" size="small" variant="contained" href={`https://us-central1-uniquote-d48ca.cloudfunctions.net/makePdf/quotations/${quotation.id}/pdf`}>Download</Button>
+                      <Button target="_blank" color="primary" size="small" variant="contained" href={`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${quotation.id}/pdf`}>Download</Button>
 
                       <Link style={linkStyle} to={`/quotations/${quotation.id}/edit`}>
                         <Button size="small" color="secondary">Edit</Button>

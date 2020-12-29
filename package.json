@@ -5,22 +5,15 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
-    "@react-pdf/renderer": "^1.6.12",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
-    "algoliasearch": "^4.8.3",
-    "convert-rupees-into-words": "^1.0.6",
     "dotenv": "^8.2.0",
     "firebase": "^8.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-form-validator-core": "^1.0.0",
-    "react-instantsearch-dom": "^6.8.2",
-    "react-pdf": "^5.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "simple-react-validator": "^1.6.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -28,6 +21,10 @@
     "build": "react-app-env build",
     "build:development": "react-app-env --env-file=development.env build",
     "build:production": "react-app-env --env-file=production.env build",
+
+    "deploy:production-hosting": "(npm run build:production & firebase use production) && firebase deploy --only hosting",
+    "deploy:development-hosting": "(npm run build:development & firebase use development) && firebase deploy --only hosting",
+    
     "test": "react-app-env test",
     "eject": "react-scripts eject"
   },
