@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '../UI/Modal/Modal';
 import {useAuth} from '../../contexts/AuthContext';
+import date from 'date-and-time';
 
 const useStyles = makeStyles((theme) => ({
   quotationSubmitButton : {
@@ -272,6 +273,23 @@ function AddQuotation() {
           return productPricing;
         }
     }
+
+    const quotationRef = async () => {
+      const now = new Date();
+      const pattern = date.compile('YYYYMMDD');
+      const currentDate = date.format(now, pattern);
+      let currentQuotationNumber = 0;
+      let quotationRef = ''
+      await db.collection("quotationRef").get().then(function(snapshot){
+        snapshot.docs.map(doc => {
+          currentQuotationNumber = doc.data().value;
+      })
+      })
+      quotationRef = `UQ_${currentDate}_${currentQuotationNumber}`;
+      console.log(quotationRef);
+    }
+
+    quotationRef();
     
       const addProductHandler = (event) => { 
         if(handleProductValidation()){
