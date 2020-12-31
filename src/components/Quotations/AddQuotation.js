@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
 function AddQuotation() {  
     const classes = useStyles();
     const {currentUser} = useAuth();
-
-    console.log(currentUser);
   
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
     const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: ''};
@@ -35,7 +33,7 @@ function AddQuotation() {
       name: '',
       address: '',
       phoneNumber: '',
-      email: ''
+      email: '',
     });
 
     const [searchResults, setSearchResults] = useState([]);
@@ -274,22 +272,22 @@ function AddQuotation() {
         }
     }
 
-    const quotationRef = async () => {
+    const generateQuotationRef = async () => {
       const now = new Date();
       const pattern = date.compile('YYYYMMDD');
       const currentDate = date.format(now, pattern);
       let currentQuotationNumber = 0;
-      let quotationRef = ''
+
       await db.collection("quotationRef").get().then(function(snapshot){
         snapshot.docs.map(doc => {
           currentQuotationNumber = doc.data().value;
       })
       })
-      quotationRef = `UQ_${currentDate}_${currentQuotationNumber}`;
-      console.log(quotationRef);
+      
+      const ref = `UQ_${currentDate}_${currentQuotationNumber}`;
+      console.log(ref);
+      setQuotation({...quotation, quotationRef: ref})
     }
-
-    quotationRef();
     
       const addProductHandler = (event) => { 
         if(handleProductValidation()){
@@ -351,8 +349,11 @@ function AddQuotation() {
 
       const quotationSubmitHandler = () => {
         if(handleQuotationValidation()){
-          let newQuotation = quotation;
+          generateQuotationRef();
+          let newQuotation = {...quotation};
+
           newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
+
           db.collection("quotations").add(newQuotation).then(async function(docRef) {
             setPdfLink(`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
           })
@@ -425,8 +426,6 @@ function AddQuotation() {
         setProduct(newProduct);
         deleteTableProduct(productId);
       }
-
-      console.log(quotation.products);
 
     return (
         <div>

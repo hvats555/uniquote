@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import 'firebase/auth';
 
+
+
 const firebaseApp = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -12,6 +14,12 @@ const firebaseApp = firebase.initializeApp({
 });
 
 const db = firebaseApp.firestore();
+
+db.useEmulator("localhost", 8080);
+firebaseApp.functions().useEmulator("localhost", 5001);
+
+
+
 export const storage = firebaseApp.storage();
 export const auth = firebaseApp.auth()
 export default db

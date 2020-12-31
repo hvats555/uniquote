@@ -87,9 +87,11 @@ app.get('/quotations/:id/pdf', async (req, res) => {
     await admin.firestore().collection('quotations').doc(req.params.id).get().then(async function(data) {
         getTemplateHtml().then(async (file) => {
             const template = hb.compile(file, { strict: true });
+
             const newDoc = data.data();
             newDoc['date'] = currentDate;
             newDoc['rupeesIntoWords'] = rupeesIntoWords(newDoc.totalPricing.grandTotal);
+            
             const result = template(newDoc);
             const html = result;
             const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
@@ -109,6 +111,21 @@ app.get('/quotations/:id/pdf', async (req, res) => {
         console.error("getDocument(): Error fetching document from firebase: ", error);
     });
 });
+
+exports.incrementQuotationNumber = functions.firestore.document("quotations/{id}").onCreate((snap, context) => {
+  let quotationNumber = 0;
+
+  admin.firestore().collection("/quotationRef").get().then((snapshot) => {
+    quotationNumber = snapshot.docs[0].data().value;
+    quotationNumber++;
+
+    admin.firestore().collection("/quotationRef").doc(snapshot.docs[0].id).update({
+      value: quotationNumber
+    });
+  });
+
+  return 0
+})
 
 exports.makePdf = functions.runWith(runtimeOpts).https.onRequest(app);
 
