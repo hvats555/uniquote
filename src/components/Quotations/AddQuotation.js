@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import db from '../../firebase';
 import firebase from 'firebase';
 import ProductSearch from '../Products/ProductSearch/ProductSearch';
@@ -35,6 +35,8 @@ function AddQuotation() {
       phoneNumber: '',
       email: '',
     });
+
+    const [quotationRef, setQuotationRef] = useState();
 
     const [searchResults, setSearchResults] = useState([]);
 
@@ -101,6 +103,18 @@ function AddQuotation() {
         errorText: ''
       }
     });
+
+    useEffect(() => {
+      const now = new Date();
+      const pattern = date.compile('YYYYMMDD');
+      const currentDate = date.format(now, pattern);
+
+      db.collection("quotationRef").onSnapshot(snapshot => {
+        setQuotationRef(snapshot.docs.map(doc => ({
+          ref: `UQ_${currentDate}_${doc.data().value}`
+        })))
+      })
+    }, [])
 
     const handleQuotationValidation = () => {
       const fields = quotation;
@@ -271,23 +285,6 @@ function AddQuotation() {
           return productPricing;
         }
     }
-
-    const generateQuotationRef = async () => {
-      const now = new Date();
-      const pattern = date.compile('YYYYMMDD');
-      const currentDate = date.format(now, pattern);
-      let currentQuotationNumber = 0;
-
-      await db.collection("quotationRef").get().then(function(snapshot){
-        snapshot.docs.map(doc => {
-          currentQuotationNumber = doc.data().value;
-      })
-      })
-      
-      const ref = `UQ_${currentDate}_${currentQuotationNumber}`;
-      console.log(ref);
-      setQuotation({...quotation, quotationRef: ref})
-    }
     
       const addProductHandler = (event) => { 
         if(handleProductValidation()){
@@ -349,8 +346,8 @@ function AddQuotation() {
 
       const quotationSubmitHandler = () => {
         if(handleQuotationValidation()){
-          generateQuotationRef();
           let newQuotation = {...quotation};
+          newQuotation['quotationRef'] = quotationRef[0].ref;
 
           newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
 
