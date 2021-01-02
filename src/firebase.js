@@ -15,8 +15,8 @@ const firebaseApp = firebase.initializeApp({
 
 const db = firebaseApp.firestore();
 
-db.useEmulator("localhost", 8080);
-firebaseApp.functions().useEmulator("localhost", 5001);
+// db.useEmulator("localhost", 8080);
+// firebaseApp.functions().useEmulator("localhost", 5001);
 
 
 

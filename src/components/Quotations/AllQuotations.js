@@ -34,7 +34,12 @@ function AllQuotations() {
     const [quotations, setQuotations] = useState([]);
     useEffect(() => {
         db.collection('quotations').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-          setQuotations(snapshot.docs.map(doc => ({id: doc.id, name: doc.data().name, address: doc.data().address})))
+          setQuotations(snapshot.docs.map(doc => ({
+            id: doc.id,
+            name: doc.data().name,
+            address: doc.data().address,
+            ref: doc.data().quotationRef
+            })))
         })
       }, []);
 
@@ -44,6 +49,7 @@ function AllQuotations() {
               {quotations.map(quotation => (
                 <Grid item xs={3}>
                   <Paper className={classes.paper}>
+                    <p>{quotation.ref}</p>
                     <h1 className={classes.heading}>{quotation.name}</h1>
                     <p className={classes.content}>{quotation.address}</p>
 

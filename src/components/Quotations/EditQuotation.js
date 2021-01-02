@@ -415,7 +415,7 @@ function EditQuotation({match}) {
     return (
         <div>
             <h1>Edit Quotation</h1>
-
+            <p>Quotation Ref: {quotation.quotationRef}</p>
             <CustomerInputForm 
             quotation={quotation} 
             customerInputHandler={customerInputHandler}

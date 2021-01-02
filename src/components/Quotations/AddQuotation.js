@@ -427,7 +427,7 @@ function AddQuotation() {
     return (
         <div>
             <h1>Create new Quotation</h1>
-
+            <p>Quotation Ref: {quotationRef ? quotationRef[0].ref: null}</p>
             <CustomerInputForm 
             quotation={quotation} 
             customerInputHandler={customerInputHandler}
