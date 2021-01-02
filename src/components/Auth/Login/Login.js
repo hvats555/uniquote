@@ -1,11 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {useAuth} from "../../../contexts/AuthContext";
-import {Link, Redirect, useHistory} from 'react-router-dom';
+import {Redirect, useHistory} from 'react-router-dom';
 
 const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const {login} = useAuth();
     const {currentUser} = useAuth();
     const history = useHistory();
 
@@ -13,7 +12,6 @@ const Login = () => {
         event.preventDefault()
 
         try{
-            const res = await login(emailRef.current.value, passwordRef.current.value);
             history.push('/');
             console.log(currentUser);
         } catch {

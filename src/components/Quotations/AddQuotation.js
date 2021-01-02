@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 function AddQuotation() {  
     const classes = useStyles();
-    const {currentUser} = useAuth();
   
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
     const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: ''};

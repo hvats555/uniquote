@@ -1,10 +1,9 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import db from '../../../firebase';
 import firebase from 'firebase';
 import Input from '../../UI/Input/Input';
 import Button from '@material-ui/core/Button';
-import Modal from '../../UI/Modal/Modal';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {storage} from '../../../firebase';
 import './EditProduct.css';
 

@@ -34,17 +34,7 @@ const useStyles = makeStyles((theme) => ({
 function AllProducts() {
   const classes = useStyles();
     const [product, setProduct] = useState([]);
-
-    const [open, setOpen] = useState(false);
     
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-
     useEffect(() => {
         db.collection('products').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
           setProduct(snapshot.docs.map(doc => (
