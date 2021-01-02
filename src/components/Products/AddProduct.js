@@ -99,13 +99,20 @@ function AddProduct() {
           });
       });
     }
+
+    const sanatizeModelNumber = (input) => {
+      let removeSpace = input.replaceAll(/\s/g, '');
+      return removeSpace.toLowerCase()
+    }
   
     const addProduct = (event) => {
       event.preventDefault();
       if(handleProductValidation()){
+        let sanatizedModelNumber = sanatizeModelNumber(input.modelNumber);
+
         db.collection('products').add({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          modelNumber: input.modelNumber,
+          modelNumber: sanatizedModelNumber,
           description: input.description,
           price: input.price,
           imageURL: input.imageURL,

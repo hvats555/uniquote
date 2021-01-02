@@ -237,10 +237,16 @@ function AddQuotation() {
       return formIsValid;
     }
 
+    const sanatizeModelNumber = (input) => {
+      let removeSpace = input.replaceAll(/\s/g, '');
+      return removeSpace.toLowerCase()
+    }
+
     async function searchDb(event){
         setSearchResults([]);
         if(event.target.value !== ''){
-          await db.collection('products').where('modelNumber', '>=', event.target.value).where('modelNumber', '<=', event.target.value + '\uf8ff').get().then(function(snapshot){      
+          const sanatizedInput = sanatizeModelNumber(event.target.value);
+          await db.collection('products').where('modelNumber', '>=', sanatizedInput).where('modelNumber', '<=', sanatizedInput + '\uf8ff').get().then(function(snapshot){      
             setSearchResults(snapshot.docs.map(doc => (
               {
                 productId:doc.id,

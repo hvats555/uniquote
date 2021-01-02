@@ -132,14 +132,22 @@ function EditProduct({match}) {
         console.log("Cannot delete file");
       });
     }
+
+    const sanatizeModelNumber = (input) => {
+      let removeSpace = input.replaceAll(/\s/g, '');
+      return removeSpace.toLowerCase()
+    }
   
     const updateProduct = (event) => {
       event.preventDefault();
 
+      let sanatizedModelNumber = sanatizeModelNumber(input.modelNumber);
+
+
       if(handleProductValidation()){
         db.collection('products').doc(match.params.id).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          modelNumber: input.modelNumber,
+          modelNumber: sanatizedModelNumber,
           description: input.description,
           price: input.price,
           imageURL: input.imageURL,
