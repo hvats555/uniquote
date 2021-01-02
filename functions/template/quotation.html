@@ -4,138 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
     <title>Unifrost quotation</title>
 </head>
+
+<style>
+
+html, body{
+  height: 100%;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  background-image: url("./25101.jpg"); 
+  -webkit-print-color-adjust:exact;
+}
+
+.quotation-box{
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 5px;
+}
+
+.company-logo{
+  align-self: center;
+  width: 150px;
+  height: auto;
+}
+
+.company-logo > img{
+  width: 100%;
+}
+
+.quotation-section{
+  display: flex;
+  justify-content: space-between;
+}
+
+table{
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+  padding: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead{
+  color: #ffffff;
+  background-color: #6c7ae0;
+}
+
+th, td{
+  padding: 8px;
+  text-align: center;
+}
+
+tbody > tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+
+tfoot{
+  color: #ffffff;
+  background-color: #6c7ae0;
+}
+
+table tr:first-child th:first-child {
+  border-top-left-radius: 5px;
+}
+
+table tr:first-child th:last-child {
+  border-top-right-radius: 5px;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+
+.quotation-summary{
+  float: right;
+  display: flex;
+  flex-direction: column;
+}
+
+/*Basic styling*/
+
+.center{
+  text-align: center;
+}
+
+.italics{
+  font-style: italic !important;
+}
+
+.bold{
+  font-weight: bold !important;
+}
+
+.float-right{
+  float: right;
+}
+
+
+.productImage{
+  height: 70px;
+  width: 70px;
+}
+
+.productImage > img{
+  height: 100%;
+  width: 100%;
+}
+
+hr{
+    border: 0;
+    height: 0.5px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+
+</style>
+
+
 <body>
-    <style>
-          body{
-            -webkit-print-color-adjust:exact;
-          }
-
-          .quotation-box{
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 5px;
-          }
-
-          .company-logo{
-            align-self: center;
-            width: 150px;
-            height: auto;
-          }
-
-          svg{
-            width: 100%;
-
-          }
-
-          .quotation-section{
-            display: flex;
-            justify-content: space-between;
-          }
-
-          table{
-            font-size: 14px;
-            width: 100%;
-            text-align: center;
-            margin: 20px 0;
-            padding: 0;
-            border-collapse: separate;
-            border-spacing: 0;
-          }
-
-          thead{
-            color: #ffffff;
-            background-color: #6c7ae0;
-          }
-
-          th, td{
-          padding: 10px;
-          text-align: center;
-          }
-
-          tbody > tr:nth-of-type(odd) { 
-          background: #eee; 
-          }
-
-          tfoot{
-          color: #ffffff;
-          background-color: #6c7ae0;
-          }
-
-          table tr:first-child th:first-child {
-          border-top-left-radius: 5px;
-          }
-
-          table tr:first-child th:last-child {
-          border-top-right-radius: 5px;
-          }
-
-          table tr:last-child td:first-child {
-          border-bottom-left-radius: 5px;
-          }
-
-          table tr:last-child td:last-child {
-          border-bottom-right-radius: 5px;
-          }
-
-          .quotation-summary{
-            float: right;
-          }
-
-          footer{
-            background-color: #6c7ae0;
-            bottom: 0px;
-          }
-
-          footer > ul{
-            padding: 10px;
-            color: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            list-style: none;
-          }
-
-          .quotation-summary{
-            display: flex;
-            flex-direction: column;
-          }
-
-          /*Basic styling*/
-          .font-14{
-          font-size: 14px !important;
-          }
-
-          .font-12{
-          font-size: 12px!important;
-          }
-
-          .center{
-          text-align: center;
-          }
-
-          .italics{
-          font-style: italic !important;
-          }
-
-          .bold{
-          font-weight: bold !important;
-          }
-
-          .float-right{
-          float: right;
-          }
-          .productImage{
-          height: 100px;
-          width: 100px;
-          }
-
-          .productImage > img{
-            height: 100%;
-            width: 100%;
-          }
-    </style>
     <div class="quotation-box">
         <div class="quotation-section">
             <div class="company-logo">
@@ -144,7 +140,9 @@
             <div class="company-address">
                 <p><span class="bold">Unifrost Food service Equipment</span><br>
                 Ground Floor, 241/2, Opp. Metro Pillar 48, MG road<br/>
-                Sultanpur, New Delhi - 110030</p>
+                Sultanpur, New Delhi - 110030<br />
+                GSTIN:- 07BCHPP7964G1Z3
+              </p>
             </div>
         </div>
 
@@ -228,24 +226,15 @@
 
             <div class="font-14">
                 <p>
-                <span class="bold">Bank Details</span><br />
-                Account: Unifrost Food Service Equipment <br />
-                Bank: Corpration Bank <br />
-                Account kNumber: 560101000124208<br />
-                IFSC code: CORP0001760100 <br />
-                Branch Name: Branch-Ghitorni, New Delhi-30
-            </p>
+                  <span class="bold">Bank Details</span><br />
+                  Account: Unifrost Food Service Equipment <br />
+                  Bank: Corpration Bank <br />
+                  Account Number: 560101000124208<br />
+                  IFSC code: UBIN0917605 <br />
+                  Branch Name: Branch-Ghitorni, New Delhi-30
+              </p>
             </div>
         </div>
-
-        
-        <footer id="pageFooter">
-            <ul>
-                <li>+91 9873255539</li>
-                <li>sales@unifrostindia.com</li>
-                <li>www.unifrostindia.com</li>
-            </ul>
-        </footer>
     </div>
 </body>
 </html>

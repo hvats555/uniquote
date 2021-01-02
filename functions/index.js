@@ -72,7 +72,7 @@ const runtimeOpts = {
 async function getTemplateHtml() {
     console.log("Loading template file in memory")
     try {
-        const quotationPath = path.resolve("./quotation.html");
+        const quotationPath = path.resolve("./template/quotation.html");
         return await readFile(quotationPath, 'utf8');
     } catch (err) {
         return Promise.reject("Could not load html template");
@@ -97,6 +97,7 @@ app.get('/quotations/:id/pdf', async (req, res) => {
             const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
             const page = await browser.newPage();
             await page.setContent(html);
+
             const buffer = await page.pdf({format: 'A4' });
             await browser.close();
             res.header('Content-Type', 'application/pdf;charset=utf-8');

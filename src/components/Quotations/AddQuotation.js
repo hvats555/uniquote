@@ -114,6 +114,7 @@ function AddQuotation() {
           ref: `UQ_${currentDate}_${doc.data().value}`
         })))
       })
+      console.log(quotationRef);
     }, [])
 
     const handleQuotationValidation = () => {
@@ -427,7 +428,7 @@ function AddQuotation() {
     return (
         <div>
             <h1>Create new Quotation</h1>
-            <p>Quotation Ref: {quotationRef ? quotationRef[0].ref: null}</p>
+            <p>Quotation Ref: {quotationRef ? quotationRef[0].ref : null}</p>
             <CustomerInputForm 
             quotation={quotation} 
             customerInputHandler={customerInputHandler}
