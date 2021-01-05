@@ -158,7 +158,9 @@ hr{
             <span>{{name}}</span><br />
             <span>{{address}}</span><br />
             <span>{{phoneNumber}}</span><br />
-            <span>{{email}}</span><br />
+            {{#if email}}
+              <span>{{email}}</span><br />
+            {{/if}}
         </div>
 
         <hr>
@@ -185,11 +187,17 @@ hr{
                 <tr>
                     <td>{{modelNumber}}</td>
                     <td>{{brand}}</td>
+
                     <td>
-                      <div class="productImage">
-                        <img src={{imageURL}}>
-                      </div>
+                      {{#if imageURL}}
+                        <div class="productImage">
+                          <img src={{imageURL}}>
+                        </div>
+                      {{else}}
+                        <p>N/A</p>
+                      {{/if}}
                     </td>
+                    
                     <td>{{description}}</td>
                     <td>{{quantity}}</td>
                     <td>{{price}}</td>
@@ -227,10 +235,12 @@ hr{
             <div class="font-14">
                 <p>
                   <span class="bold">Bank Details</span><br />
-                  Account: Unifrost Food Service Equipment <br />
-                  Bank: Corpration Bank <br />
+                  Benificary Name: Unifrost Food Service Equipment <br />
+                  Bank: Union Bank of India <br />
                   Account Number: 560101000124208<br />
                   IFSC code: UBIN0917605 <br />
+                  Swift code: UBININBBGGN<br />
+                  Bank AD code number: 02902ZR<br />
                   Branch Name: Branch-Ghitorni, New Delhi-30
               </p>
             </div>

@@ -70,9 +70,10 @@ function AllProducts() {
               {product.map(p => (
                 <Grid item xs={3} key={p.id}>
                   <Paper className={classes.paper}>
+                    {p.imageURL ?
                     <div className='imageContainer'>
                       <img id="productImage" className='productImage' src={p.imageURL} alt="product" />
-                    </div>
+                    </div> : null }
                     <h1 className={classes.heading}>{p.modelNumber}</h1>
                     <p className={classes.content}>{p.description}</p>
                     <p>Price: ₹{p.price}</p>

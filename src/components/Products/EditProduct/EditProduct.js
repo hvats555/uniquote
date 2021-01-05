@@ -89,11 +89,11 @@ function EditProduct({match}) {
         errors.price['errorText'] = 'Price has to be a number';
       }
 
-      if(!fields['imageURL']){
-        formIsValid = false;
-        errors.imageURL['isError'] = !formIsValid;
-        errors.imageURL['errorText'] = 'Please add image';
-      }
+      // if(!fields['imageURL']){
+      //   formIsValid = false;
+      //   errors.imageURL['isError'] = !formIsValid;
+      //   errors.imageURL['errorText'] = 'Please add image';
+      // }
 
       setProductValidationErrors(errors);
       return formIsValid;
@@ -132,22 +132,23 @@ function EditProduct({match}) {
       });
     }
 
-    const sanatizeModelNumber = (input) => {
-      let removeSpace = input.replaceAll(/\s/g, '');
-      return removeSpace.toLowerCase()
+    const sanatizeInput = (input) => {
+      // let removeSpace = input.replaceAll(/\s/g, '');
+      return input.toLowerCase()
     }
   
     const updateProduct = (event) => {
       event.preventDefault();
 
-      let sanatizedModelNumber = sanatizeModelNumber(input.modelNumber);
+      let sanatizedModelNumber = sanatizeInput(input.modelNumber);
+      let sanatizedDescription = sanatizeInput(input.description);
 
 
       if(handleProductValidation()){
         db.collection('products').doc(match.params.id).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           modelNumber: sanatizedModelNumber,
-          description: input.description,
+          description: sanatizedDescription,
           price: input.price,
           imageURL: input.imageURL,
           imageFileName: input.imageFileName

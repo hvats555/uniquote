@@ -237,8 +237,8 @@ function AddQuotation() {
     }
 
     const sanatizeModelNumber = (input) => {
-      let removeSpace = input.replaceAll(/\s/g, '');
-      return removeSpace.toLowerCase()
+      // let removeSpace = input.replaceAll(/\s/g, '');
+      return input.toLowerCase()
     }
 
     async function searchDb(event){

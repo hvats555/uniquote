@@ -28,11 +28,12 @@ function DisplayProducts(props) {
                         <tr key={product.productId}>
                             <td>{product.modelNumber}</td>
                             <td>{product.brand}</td>
-                            <td>
-                                <div className="productImage">
-                                    <img src={product.imageURL} alt="Product"></img>
-                                </div>
-                            </td>
+                                <td>
+                                    {product.imageURL ? 
+                                    <div className="productImage">
+                                        <img src={product.imageURL} alt="Product"></img>
+                                    </div> : <p>N/A</p>}
+                                </td>
                             <td>{product.description}</td>
                             <td>{product.quantity}</td>
                             <td>{product.price}</td>
