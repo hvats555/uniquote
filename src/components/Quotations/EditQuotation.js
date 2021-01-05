@@ -263,9 +263,9 @@ function EditQuotation({match}) {
 
       const calculateProductPricing = (unitPrice, quantity, tax, discount) => {
         const productPrice = unitPrice * quantity;
-        const taxValue = (tax/100)* productPrice;
-        const discountValue = Math.ceil((discount/100) * productPrice);
-        const totalPrice = Math.ceil((productPrice - discountValue) + taxValue);
+        const taxValue = Math.round((tax/100)* productPrice);
+        const discountValue = Math.round((discount/100) * productPrice);
+        const totalPrice = Math.round((productPrice - discountValue) + taxValue);
 
         const productPricing = {
           productPrice : productPrice,
@@ -343,9 +343,11 @@ function EditQuotation({match}) {
         if(handleQuotationValidation()){
           let newQuotation = quotation;
           newQuotation["timestamp"] = firebase.firestore.FieldValue.serverTimestamp();
+
           db.collection("quotations").doc(match.params.id).update(newQuotation).then(async function(docRef) {
-            setPdfLink(`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
+            setPdfLink(`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${match.params.id}/pdf`);
           })
+
           .catch(function(error) {
               console.error("Error adding document: ", error);
           });
@@ -453,7 +455,7 @@ function EditQuotation({match}) {
 
             <Modal open={open} handleClose={handleClose}>
               <p>Quotation has been Updated</p>
-              <a href={pdfLink}>Download PDF</a>
+              <a target="_blank" rel="noreferrer" href={pdfLink}>Download PDF</a>
             </Modal>
         </div>
     )

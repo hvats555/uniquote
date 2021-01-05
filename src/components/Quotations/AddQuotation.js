@@ -274,9 +274,9 @@ function AddQuotation() {
 
       const calculateProductPricing = (unitPrice, quantity, tax, discount) => {
         const productPrice = unitPrice * quantity;
-        const taxValue = (tax/100)* productPrice;
-        const discountValue = Math.ceil((discount/100) * productPrice);
-        const totalPrice = Math.ceil((productPrice - discountValue) + taxValue);
+        const taxValue = Math.round((tax/100)* productPrice);
+        const discountValue = Math.round((discount/100) * productPrice);
+        const totalPrice = Math.round((productPrice - discountValue) + taxValue);
 
         const productPricing = {
           productPrice : productPrice,
