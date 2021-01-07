@@ -65,8 +65,8 @@ const validateFirebaseIdToken = async (req, res, next) => {
 };
 
 const runtimeOpts = {
-    timeoutSeconds: 300,
-    memory: '1GB'
+    timeoutSeconds: 100,
+    memory: 'GB'
 }
 
 async function getTemplateHtml() {

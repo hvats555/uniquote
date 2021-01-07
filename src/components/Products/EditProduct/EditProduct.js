@@ -89,12 +89,6 @@ function EditProduct({match}) {
         errors.price['errorText'] = 'Price has to be a number';
       }
 
-      // if(!fields['imageURL']){
-      //   formIsValid = false;
-      //   errors.imageURL['isError'] = !formIsValid;
-      //   errors.imageURL['errorText'] = 'Please add image';
-      // }
-
       setProductValidationErrors(errors);
       return formIsValid;
     }
@@ -103,20 +97,28 @@ function EditProduct({match}) {
       setInput({...input, [key]: value});
     }
 
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
     function handleUpload(e) {
       e.preventDefault();
-      const uploadTask = firebase.storage().ref(`/productImages/${image.name}`).put(image);
+      const imageName = uuidv4() + '.' + image.type.slice(6);
+      const uploadTask = firebase.storage().ref(`/productImages/${imageName}`).put(image);
       uploadTask.on("state_changed", console.log, console.error, () => {
         firebase.storage()
           .ref("productImages")
-          .child(image.name)
+          .child(imageName)
           .getDownloadURL()
           .then((url) => {
             setImage(null);
             setInput({
               ...input,
               imageURL: url,
-              imageFileName: image.name
+              imageFileName: imageName
             });
             setNewUploaded(true);
           });
@@ -125,6 +127,7 @@ function EditProduct({match}) {
 
     const deleteProductImage = (imageRef) => {
       const deleteRef = storage.ref().child(`productImages/${imageRef}`);
+      
       deleteRef.delete().then(function(){
         console.log("File deleted successfully");
       }).catch(function(error){
@@ -133,7 +136,6 @@ function EditProduct({match}) {
     }
 
     const sanatizeInput = (input) => {
-      // let removeSpace = input.replaceAll(/\s/g, '');
       return input.toLowerCase()
     }
   
@@ -153,9 +155,11 @@ function EditProduct({match}) {
           imageURL: input.imageURL,
           imageFileName: input.imageFileName
         });
+
         if(newImageUploaded){
           deleteProductImage(previousInput.imageFileName);
         }
+
         setProductValidationErrors({
           price: {
             isError: false,
@@ -181,8 +185,6 @@ function EditProduct({match}) {
     const handleFileChange = (event) => {
       setImage(event.target.files[0]);
     }
-
-    
 
     return (
         <div>

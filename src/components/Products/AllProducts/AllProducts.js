@@ -53,7 +53,7 @@ function AllProducts() {
         deleteRef.delete().then(function(){
           console.log("File deleted successfully");
         }).catch(function(error){
-          console.log("Cannot delete file");
+          console.log(error);
         });
       }
 
