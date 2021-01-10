@@ -110,11 +110,17 @@ function AddQuotation() {
 
       db.collection("quotationRef").onSnapshot(snapshot => {
         setQuotationRef(snapshot.docs.map(doc => ({
+          id: doc.id,
           ref: `UQ_${currentDate}_${doc.data().value}`
         })))
       })
-      console.log(quotationRef);
     }, [])
+
+    const incrementQuotationRef = () => {
+      db.collection("quotationRef").doc(quotationRef[0].id).update({value: firebase.firestore.FieldValue.increment(1)}).then(() => {
+        console.log("Quotation ref incremented successfully!");
+      });
+    }
 
     const handleQuotationValidation = () => {
       const fields = quotation;
@@ -274,15 +280,17 @@ function AddQuotation() {
 
       const calculateProductPricing = (unitPrice, quantity, tax, discount) => {
         const productPrice = unitPrice * quantity;
-        const taxValue = Math.round((tax/100)* productPrice);
-        const discountValue = Math.round((discount/100) * productPrice);
-        const totalPrice = Math.round((productPrice - discountValue) + taxValue);
-
+        const discountValue = (discount/100) * productPrice;
+    
+        const priceAfterDiscount = productPrice-discountValue;
+        const taxValue = (tax/100) * priceAfterDiscount;
+        const totalPrice = (productPrice - discountValue) + taxValue;
+    
         const productPricing = {
-          productPrice : productPrice,
-          taxValue: taxValue,
-          discountValue: discountValue,
-          totalPrice: totalPrice
+          productPrice : Number(productPrice.toFixed(2)),
+          taxValue: Number(taxValue.toFixed(2)),
+          discountValue: Number(discountValue.toFixed(2)),
+          totalPrice: Number(totalPrice.toFixed(2))
         }
 
         if(totalPrice === taxValue){
@@ -359,6 +367,7 @@ function AddQuotation() {
 
           db.collection("quotations").add(newQuotation).then(async function(docRef) {
             setPdfLink(`https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/makePdf/quotations/${docRef.id}/pdf`);
+            incrementQuotationRef();
           })
           .catch(function(error) {
               console.error("Error adding document: ", error);
@@ -465,7 +474,7 @@ function AddQuotation() {
 
             <Modal open={open} handleClose={handleClose}>
               <p>Quotation has been saved</p>
-              <a href={pdfLink}>Download PDF</a>
+              <a href={pdfLink} target="_blank">Download PDF</a>
             </Modal>
         </div>
     )

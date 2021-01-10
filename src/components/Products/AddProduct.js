@@ -85,7 +85,9 @@ function AddProduct() {
     
     function handleUpload(e) {
       e.preventDefault();
+
       const imageName = uuidv4() + '.' + image.type.slice(6);
+    
       const uploadTask = firebase.storage().ref(`/productImages/${imageName}`).put(image);
       uploadTask.on("state_changed", console.log, console.error, () => { 
         firebase.storage()

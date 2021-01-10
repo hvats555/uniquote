@@ -66,7 +66,7 @@ const validateFirebaseIdToken = async (req, res, next) => {
 
 const runtimeOpts = {
     timeoutSeconds: 100,
-    memory: 'GB'
+    memory: '512MB'
 }
 
 async function getTemplateHtml() {
@@ -112,21 +112,6 @@ app.get('/quotations/:id/pdf', async (req, res) => {
         console.error("getDocument(): Error fetching document from firebase: ", error);
     });
 });
-
-exports.incrementQuotationNumber = functions.firestore.document("quotations/{id}").onCreate((snap, context) => {
-  let quotationNumber = 0;
-
-  admin.firestore().collection("/quotationRef").get().then((snapshot) => {
-    quotationNumber = snapshot.docs[0].data().value;
-    quotationNumber++;
-
-    admin.firestore().collection("/quotationRef").doc(snapshot.docs[0].id).update({
-      value: quotationNumber
-    });
-  });
-
-  return 0
-})
 
 exports.makePdf = functions.runWith(runtimeOpts).https.onRequest(app);
 
