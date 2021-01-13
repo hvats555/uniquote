@@ -34,6 +34,17 @@ function ProductSearch(props) {
                     <TextField 
                     className={classes.input} 
                     size="small" 
+                    variant="outlined" 
+                    label={!(props.product.price) ? "Product Price" : null}
+                    value={props.product.price} 
+                    onChange={event => props.productInputHandler("price", Number(event.target.value))}
+                    error={props.validationErrors.price.isError}
+                    helperText={props.validationErrors.price.errorText}
+                    />
+
+                    <TextField 
+                    className={classes.input} 
+                    size="small" 
                     label="Brand" 
                     variant="outlined" 
                     type="text" 

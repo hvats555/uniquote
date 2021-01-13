@@ -24,28 +24,16 @@ function AddQuotation() {
     const classes = useStyles();
   
     const quotationInitialState = {name : '', address: '', phoneNumber: '', email: '', gstin: '', products: []};
-    const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: ''};
-    
+    const productInitialState = {brand: '', modelNumber: '', quantity: '', discount: '', tax: '', price: ''};    
     const [pdfLink, setPdfLink] = useState('');
 
-    const [quotation, setQuotation] = useState({
-      name: '',
-      address: '',
-      phoneNumber: '',
-      email: '',
-    });
+    const [quotation, setQuotation] = useState(quotationInitialState);
 
     const [quotationRef, setQuotationRef] = useState();
 
     const [searchResults, setSearchResults] = useState([]);
 
-    const [product, setProduct] = useState({
-      brand: '',
-      modelNumber: '',
-      quantity: '',
-      tax: '',
-      discount: ''
-    });
+    const [product, setProduct] = useState(productInitialState);
 
     const [open, setOpen] = useState(false);
     
@@ -71,6 +59,10 @@ function AddQuotation() {
         errorText: ''
       },
       tax: {
+        isError: false,
+        errorText: ''
+      },
+      price: {
         isError: false,
         errorText: ''
       },
@@ -234,8 +226,21 @@ function AddQuotation() {
       // discount has to be a number
       if(fields['discount'] && isNaN(fields['discount'])){
         formIsValid = false;
-        errors.disocunt['isError'] = !formIsValid;
-        errors.disocunt['errorText'] = 'Discount has to be a number';
+        errors.discount['isError'] = !formIsValid;
+        errors.discount['errorText'] = 'Discount has to be a number';
+      }
+
+      if(!fields['price']){
+        formIsValid = false;
+        errors.price['isError'] = !formIsValid;
+        errors.price['errorText'] = 'Cannot be empty';
+      }
+
+      // price has to be a number
+      if(fields['price'] && isNaN(fields['price'])){
+        formIsValid = false;
+        errors.price['isError'] = !formIsValid;
+        errors.price['errorText'] = 'Price has to be a number';
       }
 
       setProductValidationErrors(errors);
@@ -349,6 +354,10 @@ function AddQuotation() {
               errorText: ''
             },
             discount: {
+              isError: false,
+              errorText: ''
+            },
+            price: {
               isError: false,
               errorText: ''
             }
